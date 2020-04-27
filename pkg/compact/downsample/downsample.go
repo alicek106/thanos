@@ -551,13 +551,13 @@ type sample struct {
 
 // CounterSeriesIterator generates monotonically increasing values by iterating
 // over an ordered sequence of chunks, which should be raw or aggregated chunks
-// of counter values.  The generated samples can be used by PromQL functions
+// of counter values. The generated samples can be used by PromQL functions
 // like 'rate' that calculate differences between counter values.
 //
 // Counter aggregation chunks must have the first and last values from their
 // original raw series: the first raw value should be the first value encoded
 // in the chunk, and the last raw value is encoded by the duplication of the
-// previous sample's timestamp.  As iteration occurs between chunks, the
+// previous sample's timestamp. As iteration occurs between chunks, the
 // comparison between the last raw value of the earlier chunk and the first raw
 // value of the later chunk ensures that counter resets between chunks are
 // recognized and that the correct value delta is calculated.

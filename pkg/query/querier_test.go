@@ -311,24 +311,96 @@ var (
 		{t: 1587693412139, v: 12238}, {t: 1587693427139, v: 12450}, {t: 1587693442163, v: 12742}, {t: 1587693457139, v: 12945}, {t: 1587693472139, v: 13181}, {t: 1587693487139, v: 13440}, {t: 1587693502139, v: 13650}, {t: 1587693517139, v: 13966}, {t: 1587693532139, v: 14122}, {t: 1587693547139, v: 14327}, {t: 1587693562139, v: 14592},
 		{t: 1587693577139, v: 14782}, {t: 1587693592139, v: 14956},
 	}
+
+	expectedRealSeriesWithStaleMarkerReplica0ForRate = []sample{
+		{t: 1587690007139, v: 461993}, {t: 1587690022139, v: 462164}, {t: 1587690037139, v: 462409}, {t: 1587690052139, v: 462662}, {t: 1587690067139, v: 462824}, {t: 1587690082139, v: 462987}, {t: 1587690097155, v: 463108}, {t: 1587690112139, v: 463261}, {t: 1587690127139, v: 463465}, {t: 1587690142139, v: 463642}, {t: 1587690157139, v: 463823},
+		{t: 1587690172139, v: 464065}, {t: 1587690187139, v: 464333}, {t: 1587690202139, v: 464566}, {t: 1587690217139, v: 464811}, {t: 1587690232140, v: 465032}, {t: 1587690247139, v: 465229}, {t: 1587690262139, v: 465445}, {t: 1587690277139, v: 465700}, {t: 1587690292139, v: 465884}, {t: 1587690307139, v: 466083}, {t: 1587690322139, v: 466250},
+		{t: 1587690337150, v: 466534}, {t: 1587690352139, v: 466791}, {t: 1587690367139, v: 466970}, {t: 1587690382139, v: 467149}, {t: 1587690397139, v: 467265}, {t: 1587690412139, v: 467383}, {t: 1587690427139, v: 467647}, {t: 1587690442139, v: 467943}, {t: 1587690457139, v: 468121}, {t: 1587690472139, v: 468294}, {t: 1587690487139, v: 468545},
+		{t: 1587690502139, v: 468676}, {t: 1587690517139, v: 468879}, {t: 1587690532139, v: 469154}, {t: 1587690547139, v: 469281}, {t: 1587690562139, v: 469512}, {t: 1587690577139, v: 469783}, {t: 1587690592139, v: 469964}, {t: 1587690607139, v: 470171}, {t: 1587690622139, v: 470355}, {t: 1587690637139, v: 470656}, {t: 1587690652139, v: 470845},
+		{t: 1587690667139, v: 471077}, {t: 1587690682139, v: 471315}, {t: 1587690697139, v: 471535}, {t: 1587690712139, v: 471766}, {t: 1587690727139, v: 472002}, {t: 1587690742139, v: 472171}, {t: 1587690757139, v: 472354}, {t: 1587690772139, v: 472736}, {t: 1587690787139, v: 472948}, {t: 1587690802139, v: 473259}, {t: 1587690817139, v: 473460},
+		{t: 1587690832139, v: 473753}, {t: 1587690847139, v: 474007}, {t: 1587690862139, v: 474286}, {t: 1587690877139, v: 474423}, {t: 1587690892139, v: 474788}, {t: 1587690907139, v: 474925}, {t: 1587690922139, v: 475031}, {t: 1587690937139, v: 475316}, {t: 1587690952139, v: 475573}, {t: 1587690967139, v: 475784}, {t: 1587690982139, v: 475992},
+		{t: 1587690997139, v: 476341}, {t: 1587691012139, v: 476541}, {t: 1587691027139, v: 476890}, {t: 1587691042139, v: 477033}, {t: 1587691057139, v: 477305}, {t: 1587691072139, v: 477577}, {t: 1587691087139, v: 477771}, {t: 1587691102139, v: 478012}, {t: 1587691117139, v: 478296}, {t: 1587691132139, v: 478559}, {t: 1587691147139, v: 478744},
+		{t: 1587691162139, v: 478950}, {t: 1587691177139, v: 479201}, {t: 1587691192139, v: 479388}, {t: 1587691207139, v: 479638}, {t: 1587691222154, v: 479907}, {t: 1587691237139, v: 480008}, {t: 1587691252139, v: 480167}, {t: 1587691267139, v: 480472}, {t: 1587691282157, v: 480615}, {t: 1587691297139, v: 480771}, {t: 1587691312139, v: 481027},
+		{t: 1587691327139, v: 481212}, {t: 1587691342159, v: 481395}, {t: 1587691357139, v: 481598}, {t: 1587691372139, v: 481786}, {t: 1587691387139, v: 482003}, {t: 1587691402141, v: 482236}, {t: 1587691417139, v: 482508}, {t: 1587691432139, v: 482636}, {t: 1587691447139, v: 482780}, {t: 1587691462139, v: 483059}, {t: 1587691477139, v: 483357},
+		{t: 1587691492139, v: 483566}, {t: 1587691507139, v: 483711}, {t: 1587691522139, v: 483838}, {t: 1587691537139, v: 484091}, {t: 1587691552139, v: 484254}, {t: 1587691567139, v: 484479}, {t: 1587691582139, v: 484748}, {t: 1587691597139, v: 484978}, {t: 1587691612139, v: 485271}, {t: 1587691627139, v: 485488}, {t: 1587691642139, v: 485700},
+		{t: 1587691657139, v: 485945}, {t: 1587691672139, v: 486228}, {t: 1587691687139, v: 486588}, {t: 1587691702139, v: 486691}, {t: 1587691717139, v: 486881}, {t: 1587691732139, v: 487046}, {t: 1587691747139, v: 487291}, {t: 1587691762177, v: 487410}, {t: 1587691777139, v: 487571}, {t: 1587691792139, v: 487799}, {t: 1587691807139, v: 488050},
+		{t: 1587691822139, v: 488241}, {t: 1587691837139, v: 488424}, {t: 1587691852139, v: 488629}, {t: 1587691867139, v: 488875}, {t: 1587691882139, v: 489017}, {t: 1587691897139, v: 489254}, {t: 1587691912139, v: 489545}, {t: 1587691927139, v: 489778}, {t: 1587691942139, v: 489912}, {t: 1587691957139, v: 490084}, {t: 1587691972139, v: 490364},
+		{t: 1587691987139, v: 490510}, {t: 1587692002139, v: 490744}, {t: 1587692017139, v: 490880}, {t: 1587692032139, v: 491025}, {t: 1587692047139, v: 491297}, {t: 1587692062155, v: 491557}, {t: 1587692077139, v: 491839}, {t: 1587692092139, v: 492065}, {t: 1587692107139, v: 492234}, {t: 1587692122139, v: 492526}, {t: 1587692137139, v: 492767},
+		{t: 1587692152139, v: 492967}, {t: 1587692167139, v: 493218}, {t: 1587692182139, v: 493442}, {t: 1587692197139, v: 493647}, {t: 1587692212139, v: 493920}, {t: 1587692227139, v: 494170}, {t: 1587692242139, v: 494358}, {t: 1587692257139, v: 494632}, {t: 1587692272139, v: 494800}, {t: 1587692287139, v: 495026}, {t: 1587692302139, v: 495222},
+		{t: 1587692317139, v: 495433}, {t: 1587692332139, v: 495677}, {t: 1587692347139, v: 495901}, {t: 1587692362139, v: 496107}, {t: 1587692377139, v: 496196}, {t: 1587692392139, v: 496245}, {t: 1587692407139, v: 496300}, {t: 1587692422159, v: 496365}, {t: 1587692437139, v: 496401}, {t: 1587692452139, v: 496452}, {t: 1587692467139, v: 496532},
+		{t: 1587692542149, v: 496537}, {t: 1587692557139, v: 496633}, {t: 1587692572139, v: 496844}, {t: 1587692587139, v: 497040}, {t: 1587692602144, v: 497257}, {t: 1587692617139, v: 497522}, {t: 1587692632139, v: 497710}, {t: 1587692647139, v: 497938}, {t: 1587692662154, v: 498172}, {t: 1587692677139, v: 498459}, {t: 1587692692139, v: 498635},
+		{t: 1587692707139, v: 498832}, {t: 1587692722139, v: 499014}, {t: 1587692737139, v: 499170}, {t: 1587692752139, v: 499338}, {t: 1587692767139, v: 499511}, {t: 1587692782149, v: 499719}, {t: 1587692797139, v: 499973}, {t: 1587692812139, v: 500189}, {t: 1587692827139, v: 500359}, {t: 1587692842139, v: 500517}, {t: 1587692857139, v: 500727},
+		{t: 1587692872139, v: 500959}, {t: 1587692887139, v: 501178}, {t: 1587692902139, v: 501246}, {t: 1587692917153, v: 501404}, {t: 1587692932139, v: 501663}, {t: 1587692947139, v: 501850}, {t: 1587692962139, v: 502103}, {t: 1587692977155, v: 502280}, {t: 1587692992139, v: 502562}, {t: 1587693007139, v: 502742}, {t: 1587693022139, v: 502931},
+		{t: 1587693037139, v: 503190}, {t: 1587693052139, v: 503428}, {t: 1587693067139, v: 503630}, {t: 1587693082139, v: 503873}, {t: 1587693097139, v: 504027}, {t: 1587693112139, v: 504179}, {t: 1587693127139, v: 504362}, {t: 1587693142139, v: 504590}, {t: 1587693157139, v: 504741}, {t: 1587693172139, v: 505056}, {t: 1587693187139, v: 505244},
+		{t: 1587693202139, v: 505436}, {t: 1587693217139, v: 505635}, {t: 1587693232139, v: 505936}, {t: 1587693247155, v: 506088}, {t: 1587693262139, v: 506309}, {t: 1587693277139, v: 506524}, {t: 1587693292139, v: 506800}, {t: 1587693307139, v: 507010}, {t: 1587693322139, v: 507286}, {t: 1587693337139, v: 507530}, {t: 1587693352139, v: 507781},
+		{t: 1587693367139, v: 507991}, {t: 1587693382139, v: 508310}, {t: 1587693397139, v: 508570}, {t: 1587693412139, v: 508770}, {t: 1587693427139, v: 508982}, {t: 1587693442163, v: 509274}, {t: 1587693457139, v: 509477}, {t: 1587693472139, v: 509713}, {t: 1587693487139, v: 509972}, {t: 1587693502139, v: 510182}, {t: 1587693517139, v: 510498},
+		{t: 1587693532139, v: 510654}, {t: 1587693547139, v: 510859}, {t: 1587693562139, v: 511124}, {t: 1587693577139, v: 511314}, {t: 1587693592139, v: 511488},
+	}
+
+	expectedRealSeriesWithStaleMarkerReplica1ForRate = []sample{
+		{t: 1587690005791, v: 461968}, {t: 1587690020791, v: 462151}, {t: 1587690035797, v: 462336}, {t: 1587690050791, v: 462650}, {t: 1587690065791, v: 462813}, {t: 1587690080791, v: 462987}, {t: 1587690095791, v: 463095}, {t: 1587690110791, v: 463247}, {t: 1587690125791, v: 463440}, {t: 1587690140791, v: 463642}, {t: 1587690155791, v: 463811}, {t: 1587690170791, v: 464027},
+		{t: 1587690185791, v: 464308}, {t: 1587690200791, v: 464514}, {t: 1587690215791, v: 464798}, {t: 1587690230791, v: 465018}, {t: 1587690245791, v: 465215}, {t: 1587690260813, v: 465431}, {t: 1587690275791, v: 465651}, {t: 1587690290791, v: 465870}, {t: 1587690305791, v: 466070}, {t: 1587690320792, v: 466248}, {t: 1587690335791, v: 466506}, {t: 1587690350791, v: 466766},
+		{t: 1587690365791, v: 466970}, {t: 1587690380791, v: 467123}, {t: 1587690395791, v: 467265}, {t: 1587690410791, v: 467383}, {t: 1587690425791, v: 467629}, {t: 1587690440791, v: 467931}, {t: 1587690455791, v: 468097}, {t: 1587690470791, v: 468281}, {t: 1587690485791, v: 468477}, {t: 1587690500791, v: 468649}, {t: 1587690515791, v: 468867}, {t: 1587690530791, v: 469150},
+		{t: 1587690545791, v: 469268}, {t: 1587690560791, v: 469488}, {t: 1587690575791, v: 469742}, {t: 1587690590791, v: 469951}, {t: 1587690605791, v: 470131}, {t: 1587690620791, v: 470337}, {t: 1587690635791, v: 470631}, {t: 1587690650791, v: 470832}, {t: 1587690665791, v: 471077}, {t: 1587690680791, v: 471311}, {t: 1587690695791, v: 471473}, {t: 1587690710791, v: 471728},
+		{t: 1587690725791, v: 472002}, {t: 1587690740791, v: 472158}, {t: 1587690755791, v: 472329}, {t: 1587690770791, v: 472722}, {t: 1587690785791, v: 472925}, {t: 1587690800791, v: 473220}, {t: 1587690815791, v: 473460}, {t: 1587690830791, v: 473748}, {t: 1587690845791, v: 473968}, {t: 1587690860791, v: 474261}, {t: 1587690875791, v: 474418}, {t: 1587690890791, v: 474726},
+		{t: 1587690905791, v: 474913}, {t: 1587690920791, v: 475031}, {t: 1587690935791, v: 475284}, {t: 1587690950791, v: 475563}, {t: 1587690965791, v: 475762}, {t: 1587690980791, v: 475945}, {t: 1587690995791, v: 476302}, {t: 1587691010791, v: 476501}, {t: 1587691025791, v: 476849}, {t: 1587691040800, v: 477020}, {t: 1587691055791, v: 477280}, {t: 1587691070791, v: 477549},
+		{t: 1587691085791, v: 477758}, {t: 1587691100817, v: 477960}, {t: 1587691115791, v: 478261}, {t: 1587691130791, v: 478559}, {t: 1587691145791, v: 478704}, {t: 1587691160804, v: 478950}, {t: 1587691175791, v: 479173}, {t: 1587691190791, v: 479368}, {t: 1587691205791, v: 479625}, {t: 1587691220805, v: 479866}, {t: 1587691235791, v: 480008}, {t: 1587691250791, v: 480155},
+		{t: 1587691265791, v: 480472}, {t: 1587691280811, v: 480598}, {t: 1587691295791, v: 480771}, {t: 1587691310791, v: 480996}, {t: 1587691325791, v: 481200}, {t: 1587691340803, v: 481381}, {t: 1587691355791, v: 481584}, {t: 1587691370791, v: 481759}, {t: 1587691385791, v: 482003}, {t: 1587691400803, v: 482189}, {t: 1587691415791, v: 482457}, {t: 1587691430791, v: 482623},
+		{t: 1587691445791, v: 482768}, {t: 1587691460804, v: 483036}, {t: 1587691475791, v: 483322}, {t: 1587691490791, v: 483566}, {t: 1587691505791, v: 483709}, {t: 1587691520807, v: 483838}, {t: 1587691535791, v: 484091}, {t: 1587691550791, v: 484236}, {t: 1587691565791, v: 484454}, {t: 1587691580816, v: 484710}, {t: 1587691595791, v: 484978}, {t: 1587691610791, v: 485271},
+		{t: 1587691625791, v: 485476}, {t: 1587691640792, v: 485640}, {t: 1587691655791, v: 485921}, {t: 1587691670791, v: 486201}, {t: 1587691685791, v: 486555}, {t: 1587691700791, v: 486691}, {t: 1587691715791, v: 486831}, {t: 1587691730791, v: 487033}, {t: 1587691745791, v: 487268}, {t: 1587691760803, v: 487370}, {t: 1587691775791, v: 487571}, {t: 1587691790791, v: 487787},
+		{t: 1587691805791, v: 488036}, {t: 1587691820791, v: 488241}, {t: 1587691835791, v: 488411}, {t: 1587691850791, v: 488625}, {t: 1587691865791, v: 488868}, {t: 1587691880791, v: 489005}, {t: 1587691895791, v: 489237}, {t: 1587691910791, v: 489545}, {t: 1587691925791, v: 489750}, {t: 1587691940791, v: 489899}, {t: 1587691955791, v: 490048}, {t: 1587691970791, v: 490364},
+		{t: 1587691985791, v: 490485}, {t: 1587692000791, v: 490722}, {t: 1587692015791, v: 490866}, {t: 1587692030791, v: 491025}, {t: 1587692045791, v: 491286}, {t: 1587692060816, v: 491543}, {t: 1587692075791, v: 491787}, {t: 1587692090791, v: 492065}, {t: 1587692105791, v: 492223}, {t: 1587692120816, v: 492501}, {t: 1587692135791, v: 492767}, {t: 1587692150791, v: 492955},
+		{t: 1587692165791, v: 493194}, {t: 1587692180792, v: 493402}, {t: 1587692195791, v: 493647}, {t: 1587692210791, v: 493897}, {t: 1587692225791, v: 494117}, {t: 1587692240805, v: 494356}, {t: 1587692255791, v: 494620}, {t: 1587692270791, v: 494762}, {t: 1587692285791, v: 495001}, {t: 1587692300805, v: 495222}, {t: 1587692315791, v: 495393}, {t: 1587692330791, v: 495662},
+		{t: 1587692345791, v: 495875}, {t: 1587692360801, v: 496082}, {t: 1587692375791, v: 496196}, {t: 1587692390791, v: 496245}, {t: 1587692405791, v: 496295}, {t: 1587692420791, v: 496365}, {t: 1587692435791, v: 496401}, {t: 1587692450791, v: 496452}, {t: 1587692465791, v: 496491}, {t: 1587692480791, v: 496544}, {t: 1587692555791, v: 496619}, {t: 1587692570791, v: 496852},
+		{t: 1587692585791, v: 497052}, {t: 1587692600791, v: 497245}, {t: 1587692615791, v: 497529}, {t: 1587692630791, v: 497697}, {t: 1587692645791, v: 497909}, {t: 1587692660791, v: 498156}, {t: 1587692675803, v: 498466}, {t: 1587692690791, v: 498647}, {t: 1587692705791, v: 498805}, {t: 1587692720791, v: 499013}, {t: 1587692735805, v: 499169}, {t: 1587692750791, v: 499345},
+		{t: 1587692765791, v: 499499}, {t: 1587692780791, v: 499731}, {t: 1587692795806, v: 499972}, {t: 1587692810791, v: 500201}, {t: 1587692825791, v: 500354}, {t: 1587692840791, v: 500512}, {t: 1587692855791, v: 500739}, {t: 1587692870791, v: 500958}, {t: 1587692885791, v: 501190}, {t: 1587692900791, v: 501233}, {t: 1587692915791, v: 501391}, {t: 1587692930791, v: 501649},
+		{t: 1587692945791, v: 501853}, {t: 1587692960791, v: 502065}, {t: 1587692975791, v: 502239}, {t: 1587692990810, v: 502554}, {t: 1587693005791, v: 502754}, {t: 1587693020791, v: 502938}, {t: 1587693035791, v: 503141}, {t: 1587693050791, v: 503416}, {t: 1587693065791, v: 503642}, {t: 1587693080791, v: 503873}, {t: 1587693095791, v: 504014}, {t: 1587693110791, v: 504178},
+		{t: 1587693125821, v: 504374}, {t: 1587693140791, v: 504578}, {t: 1587693155791, v: 504753}, {t: 1587693170791, v: 505043}, {t: 1587693185791, v: 505232}, {t: 1587693200791, v: 505437}, {t: 1587693215791, v: 505596}, {t: 1587693230791, v: 505923}, {t: 1587693245791, v: 506088}, {t: 1587693260791, v: 506307}, {t: 1587693275791, v: 506518}, {t: 1587693290791, v: 506786},
+		{t: 1587693305791, v: 507008}, {t: 1587693320803, v: 507260}, {t: 1587693335791, v: 507519}, {t: 1587693350791, v: 507776}, {t: 1587693365791, v: 508003}, {t: 1587693380791, v: 508322}, {t: 1587693395804, v: 508551}, {t: 1587693410791, v: 508750}, {t: 1587693425791, v: 508994}, {t: 1587693440791, v: 509237}, {t: 1587693455791, v: 509452}, {t: 1587693470791, v: 509702},
+		{t: 1587693485791, v: 509971}, {t: 1587693500791, v: 510147}, {t: 1587693515791, v: 510471}, {t: 1587693530816, v: 510666}, {t: 1587693545791, v: 510871}, {t: 1587693560791, v: 511123}, {t: 1587693575791, v: 511303}, {t: 1587693590791, v: 511500},
+	}
+	expectedRealSeriesWithStaleMarkerDeduplicatedForRate = []sample{
+		{t: 1587690005791, v: 461968}, {t: 1587690020791, v: 462151}, {t: 1587690035797, v: 462336}, {t: 1587690050791, v: 462650}, {t: 1587690065791, v: 462813}, {t: 1587690080791, v: 462987}, {t: 1587690095791, v: 463095}, {t: 1587690110791, v: 463247}, {t: 1587690125791, v: 463440}, {t: 1587690140791, v: 463642}, {t: 1587690155791, v: 463811}, {t: 1587690170791, v: 464027},
+		{t: 1587690185791, v: 464308}, {t: 1587690200791, v: 464514}, {t: 1587690215791, v: 464798}, {t: 1587690230791, v: 465018}, {t: 1587690245791, v: 465215}, {t: 1587690260813, v: 465431}, {t: 1587690275791, v: 465651}, {t: 1587690290791, v: 465870}, {t: 1587690305791, v: 466070}, {t: 1587690320792, v: 466248}, {t: 1587690335791, v: 466506}, {t: 1587690350791, v: 466766},
+		{t: 1587690365791, v: 466970}, {t: 1587690380791, v: 467123}, {t: 1587690395791, v: 467265}, {t: 1587690410791, v: 467383}, {t: 1587690425791, v: 467629}, {t: 1587690440791, v: 467931}, {t: 1587690455791, v: 468097}, {t: 1587690470791, v: 468281}, {t: 1587690485791, v: 468477}, {t: 1587690500791, v: 468649}, {t: 1587690515791, v: 468867}, {t: 1587690530791, v: 469150},
+		{t: 1587690545791, v: 469268}, {t: 1587690560791, v: 469488}, {t: 1587690575791, v: 469742}, {t: 1587690590791, v: 469951}, {t: 1587690605791, v: 470131}, {t: 1587690620791, v: 470337}, {t: 1587690635791, v: 470631}, {t: 1587690650791, v: 470832}, {t: 1587690665791, v: 471077}, {t: 1587690680791, v: 471311}, {t: 1587690695791, v: 471473}, {t: 1587690710791, v: 471728},
+		{t: 1587690725791, v: 472002}, {t: 1587690740791, v: 472158}, {t: 1587690755791, v: 472329}, {t: 1587690770791, v: 472722}, {t: 1587690785791, v: 472925}, {t: 1587690800791, v: 473220}, {t: 1587690815791, v: 473460}, {t: 1587690830791, v: 473748}, {t: 1587690845791, v: 473968}, {t: 1587690860791, v: 474261}, {t: 1587690875791, v: 474418}, {t: 1587690890791, v: 474726},
+		{t: 1587690905791, v: 474913}, {t: 1587690920791, v: 475031}, {t: 1587690935791, v: 475284}, {t: 1587690950791, v: 475563}, {t: 1587690965791, v: 475762}, {t: 1587690980791, v: 475945}, {t: 1587690995791, v: 476302}, {t: 1587691010791, v: 476501}, {t: 1587691025791, v: 476849}, {t: 1587691040800, v: 477020}, {t: 1587691055791, v: 477280}, {t: 1587691070791, v: 477549},
+		{t: 1587691085791, v: 477758}, {t: 1587691100817, v: 477960}, {t: 1587691115791, v: 478261}, {t: 1587691130791, v: 478559}, {t: 1587691145791, v: 478704}, {t: 1587691160804, v: 478950}, {t: 1587691175791, v: 479173}, {t: 1587691190791, v: 479368}, {t: 1587691205791, v: 479625}, {t: 1587691220805, v: 479866}, {t: 1587691235791, v: 480008}, {t: 1587691250791, v: 480155},
+		{t: 1587691265791, v: 480472}, {t: 1587691280811, v: 480598}, {t: 1587691295791, v: 480771}, {t: 1587691310791, v: 480996}, {t: 1587691325791, v: 481200}, {t: 1587691340803, v: 481381}, {t: 1587691355791, v: 481584}, {t: 1587691370791, v: 481759}, {t: 1587691385791, v: 482003}, {t: 1587691400803, v: 482189}, {t: 1587691415791, v: 482457}, {t: 1587691430791, v: 482623},
+		{t: 1587691445791, v: 482768}, {t: 1587691460804, v: 483036}, {t: 1587691475791, v: 483322}, {t: 1587691490791, v: 483566}, {t: 1587691505791, v: 483709}, {t: 1587691520807, v: 483838}, {t: 1587691535791, v: 484091}, {t: 1587691550791, v: 484236}, {t: 1587691565791, v: 484454}, {t: 1587691580816, v: 484710}, {t: 1587691595791, v: 484978}, {t: 1587691610791, v: 485271},
+		{t: 1587691625791, v: 485476}, {t: 1587691640792, v: 485640}, {t: 1587691655791, v: 485921}, {t: 1587691670791, v: 486201}, {t: 1587691685791, v: 486555}, {t: 1587691700791, v: 486691}, {t: 1587691715791, v: 486831}, {t: 1587691730791, v: 487033}, {t: 1587691745791, v: 487268}, {t: 1587691760803, v: 487370}, {t: 1587691775791, v: 487571}, {t: 1587691790791, v: 487787},
+		{t: 1587691805791, v: 488036}, {t: 1587691820791, v: 488241}, {t: 1587691835791, v: 488411}, {t: 1587691850791, v: 488625}, {t: 1587691865791, v: 488868}, {t: 1587691880791, v: 489005}, {t: 1587691895791, v: 489237}, {t: 1587691910791, v: 489545}, {t: 1587691925791, v: 489750}, {t: 1587691940791, v: 489899}, {t: 1587691955791, v: 490048}, {t: 1587691970791, v: 490364},
+		{t: 1587691985791, v: 490485}, {t: 1587692000791, v: 490722}, {t: 1587692015791, v: 490866}, {t: 1587692030791, v: 491025}, {t: 1587692045791, v: 491286}, {t: 1587692060816, v: 491543}, {t: 1587692075791, v: 491787}, {t: 1587692090791, v: 492065}, {t: 1587692105791, v: 492223}, {t: 1587692120816, v: 492501}, {t: 1587692135791, v: 492767}, {t: 1587692150791, v: 492955},
+		{t: 1587692165791, v: 493194}, {t: 1587692180792, v: 493402}, {t: 1587692195791, v: 493647}, {t: 1587692210791, v: 493897}, {t: 1587692225791, v: 494117}, {t: 1587692240805, v: 494356}, {t: 1587692255791, v: 494620}, {t: 1587692270791, v: 494762}, {t: 1587692285791, v: 495001}, {t: 1587692300805, v: 495222}, {t: 1587692315791, v: 495393}, {t: 1587692330791, v: 495662},
+		{t: 1587692345791, v: 495875}, {t: 1587692360801, v: 496082}, {t: 1587692375791, v: 496196}, {t: 1587692390791, v: 496245}, {t: 1587692405791, v: 496295}, {t: 1587692420791, v: 496365}, {t: 1587692435791, v: 496401}, {t: 1587692450791, v: 496452}, {t: 1587692465791, v: 496491}, {t: 1587692480791, v: 496544}, {t: 1587692542149, v: 496537}, {t: 1587692557139, v: 496633},
+		{t: 1587692572139, v: 496844}, {t: 1587692587139, v: 497040}, {t: 1587692602144, v: 497257}, {t: 1587692617139, v: 497522}, {t: 1587692632139, v: 497710}, {t: 1587692647139, v: 497938}, {t: 1587692662154, v: 498172}, {t: 1587692677139, v: 498459}, {t: 1587692692139, v: 498635}, {t: 1587692707139, v: 498832}, {t: 1587692722139, v: 499014}, {t: 1587692737139, v: 499170},
+		{t: 1587692752139, v: 499338}, {t: 1587692767139, v: 499511}, {t: 1587692782149, v: 499719}, {t: 1587692797139, v: 499973}, {t: 1587692812139, v: 500189}, {t: 1587692827139, v: 500359}, {t: 1587692842139, v: 500517}, {t: 1587692857139, v: 500727}, {t: 1587692872139, v: 500959}, {t: 1587692887139, v: 501178}, {t: 1587692902139, v: 501246}, {t: 1587692917153, v: 501404},
+		{t: 1587692932139, v: 501663}, {t: 1587692947139, v: 501850}, {t: 1587692962139, v: 502103}, {t: 1587692977155, v: 502280}, {t: 1587692992139, v: 502562}, {t: 1587693007139, v: 502742}, {t: 1587693022139, v: 502931}, {t: 1587693037139, v: 503190}, {t: 1587693052139, v: 503428}, {t: 1587693067139, v: 503630}, {t: 1587693082139, v: 503873}, {t: 1587693097139, v: 504027},
+		{t: 1587693112139, v: 504179}, {t: 1587693127139, v: 504362}, {t: 1587693142139, v: 504590}, {t: 1587693157139, v: 504741}, {t: 1587693172139, v: 505056}, {t: 1587693187139, v: 505244}, {t: 1587693202139, v: 505436}, {t: 1587693217139, v: 505635}, {t: 1587693232139, v: 505936}, {t: 1587693247155, v: 506088}, {t: 1587693262139, v: 506309}, {t: 1587693277139, v: 506524},
+		{t: 1587693292139, v: 506800}, {t: 1587693307139, v: 507010}, {t: 1587693322139, v: 507286}, {t: 1587693337139, v: 507530}, {t: 1587693352139, v: 507781}, {t: 1587693367139, v: 507991}, {t: 1587693382139, v: 508310}, {t: 1587693397139, v: 508570}, {t: 1587693412139, v: 508770}, {t: 1587693427139, v: 508982}, {t: 1587693442163, v: 509274}, {t: 1587693457139, v: 509477},
+		{t: 1587693472139, v: 509713}, {t: 1587693487139, v: 509972}, {t: 1587693502139, v: 510182}, {t: 1587693517139, v: 510498}, {t: 1587693532139, v: 510654}, {t: 1587693547139, v: 510859}, {t: 1587693562139, v: 511124}, {t: 1587693577139, v: 511314}, {t: 1587693592139, v: 511488},
+	}
 )
+
+type series struct {
+	lset    labels.Labels
+	samples []sample
+}
 
 func TestQuerier_Select(t *testing.T) {
 	logger := log.NewLogfmtLogger(os.Stderr)
-
-	type series struct {
-		lset    labels.Labels
-		samples []sample
-	}
 
 	for _, tcase := range []struct {
 		name     string
 		storeAPI storepb.StoreServer
 
-		mint, maxt         int64
-		matchers           []*labels.Matcher
-		replicaLabels      []string
-		hints              *storage.SelectParams
+		mint, maxt      int64
+		matchers        []*labels.Matcher
+		replicaLabels   []string
+		hints           *storage.SelectParams
+		equivalentQuery string
+
 		expected           []series
 		expectedAfterDedup series
 		expectedWarning    string
@@ -346,7 +418,9 @@ func TestQuerier_Select(t *testing.T) {
 				},
 			},
 			mint: 1, maxt: 300,
-			replicaLabels: []string{"a"},
+			replicaLabels:   []string{"a"},
+			equivalentQuery: `{a=~"a|b|c"}`,
+
 			expected: []series{
 				{
 					lset:    labels.FromStrings("a", "a"),
@@ -382,6 +456,8 @@ func TestQuerier_Select(t *testing.T) {
 				Name:  "__name__",
 				Type:  labels.MatchEqual,
 			}},
+			equivalentQuery: `gitlab_transaction_cache_read_hit_count_total{}`,
+
 			expected: []series{
 				{
 					lset: labels.FromStrings(
@@ -461,6 +537,94 @@ func TestQuerier_Select(t *testing.T) {
 				Name:  "__name__",
 				Type:  labels.MatchEqual,
 			}},
+			equivalentQuery: `gitlab_transaction_cache_read_hit_count_total{}`,
+
+			expected: []series{
+				{
+					lset: labels.FromStrings(
+						"__name__", "gitlab_transaction_cache_read_hit_count_total",
+						"action", "widget.json",
+						"controller", "Projects::MergeRequests::ContentController",
+						"env", "gprd",
+						"environment", "gprd",
+						"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
+						"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
+						"job", "gitlab-rails",
+						"monitor", "app",
+						"provider", "gcp",
+						"region", "us-east",
+						"replica", "01",
+						"shard", "default",
+						"stage", "main",
+						"tier", "sv",
+						"type", "web",
+					),
+					samples: expectedRealSeriesWithStaleMarkerReplica0,
+				},
+				{
+					lset: labels.FromStrings(
+						"__name__", "gitlab_transaction_cache_read_hit_count_total",
+						"action", "widget.json",
+						"controller", "Projects::MergeRequests::ContentController",
+						"env", "gprd",
+						"environment", "gprd",
+						"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
+						"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
+						"job", "gitlab-rails",
+						"monitor", "app",
+						"provider", "gcp",
+						"region", "us-east",
+						"replica", "02",
+						"shard", "default",
+						"stage", "main",
+						"tier", "sv",
+						"type", "web",
+					),
+					samples: expectedRealSeriesWithStaleMarkerReplica1,
+				},
+			},
+			expectedAfterDedup: series{
+				lset: labels.FromStrings(
+					"__name__", "gitlab_transaction_cache_read_hit_count_total",
+					"action", "widget.json",
+					"controller", "Projects::MergeRequests::ContentController",
+					"env", "gprd",
+					"environment", "gprd",
+					"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
+					"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
+					"job", "gitlab-rails",
+					"monitor", "app",
+					"provider", "gcp",
+					"region", "us-east",
+					"shard", "default",
+					"stage", "main",
+					"tier", "sv",
+					"type", "web",
+				),
+				samples: expectedRealSeriesWithStaleMarkerDeduplicated,
+			},
+		},
+		{
+			name: "realistic data with stale marker with 100000 step",
+			storeAPI: func() storepb.StoreServer {
+				s, err := store.NewLocalStoreFromJSONMmappableFile(logger, component.Debug, nil, "./testdata/issue2401-seriesresponses2.json", store.ScanGRPCCurlProtoStreamMessages)
+				testutil.Ok(t, err)
+				return s
+			}(),
+			mint: realSeriesWithStaleMarkerMint, maxt: realSeriesWithStaleMarkerMaxt,
+			replicaLabels: []string{"replica"},
+			matchers: []*labels.Matcher{{
+				Value: "gitlab_transaction_cache_read_hit_count_total",
+				Name:  "__name__",
+				Type:  labels.MatchEqual,
+			}},
+			hints: &storage.SelectParams{
+				Start: realSeriesWithStaleMarkerMint,
+				End:   realSeriesWithStaleMarkerMaxt,
+				Step:  100000,
+			},
+			equivalentQuery: `gitlab_transaction_cache_read_hit_count_total{}`,
+
 			expected: []series{
 				{
 					lset: labels.FromStrings(
@@ -548,6 +712,8 @@ func TestQuerier_Select(t *testing.T) {
 				End:   realSeriesWithStaleMarkerMaxt,
 				Func:  "rate",
 			},
+			equivalentQuery: `rate(gitlab_transaction_cache_read_hit_count_total[5m])`,
+
 			expected: []series{
 				{
 					lset: labels.FromStrings(
@@ -568,7 +734,7 @@ func TestQuerier_Select(t *testing.T) {
 						"tier", "sv",
 						"type", "web",
 					),
-					samples: expectedRealSeriesWithStaleMarkerReplica0,
+					samples: expectedRealSeriesWithStaleMarkerReplica0ForRate,
 				},
 				{
 					lset: labels.FromStrings(
@@ -589,7 +755,7 @@ func TestQuerier_Select(t *testing.T) {
 						"tier", "sv",
 						"type", "web",
 					),
-					samples: expectedRealSeriesWithStaleMarkerReplica1,
+					samples: expectedRealSeriesWithStaleMarkerReplica1ForRate,
 				},
 			},
 			expectedAfterDedup: series{
@@ -610,94 +776,17 @@ func TestQuerier_Select(t *testing.T) {
 					"tier", "sv",
 					"type", "web",
 				),
-				samples: expectedRealSeriesWithStaleMarkerDeduplicated,
-			},
-		},
-		{
-			name: "realistic data with stale marker with 100000 step",
-			storeAPI: func() storepb.StoreServer {
-				s, err := store.NewLocalStoreFromJSONMmappableFile(logger, component.Debug, nil, "./testdata/issue2401-seriesresponses2.json", store.ScanGRPCCurlProtoStreamMessages)
-				testutil.Ok(t, err)
-				return s
-			}(),
-			mint: realSeriesWithStaleMarkerMint, maxt: realSeriesWithStaleMarkerMaxt,
-			replicaLabels: []string{"replica"},
-			matchers: []*labels.Matcher{{
-				Value: "gitlab_transaction_cache_read_hit_count_total",
-				Name:  "__name__",
-				Type:  labels.MatchEqual,
-			}},
-			hints: &storage.SelectParams{
-				Start: realSeriesWithStaleMarkerMint,
-				End:   realSeriesWithStaleMarkerMaxt,
-				Step:  100000,
-			},
-			expected: []series{
-				{
-					lset: labels.FromStrings(
-						"__name__", "gitlab_transaction_cache_read_hit_count_total",
-						"action", "widget.json",
-						"controller", "Projects::MergeRequests::ContentController",
-						"env", "gprd",
-						"environment", "gprd",
-						"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
-						"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
-						"job", "gitlab-rails",
-						"monitor", "app",
-						"provider", "gcp",
-						"region", "us-east",
-						"replica", "01",
-						"shard", "default",
-						"stage", "main",
-						"tier", "sv",
-						"type", "web",
-					),
-					samples: expectedRealSeriesWithStaleMarkerReplica0,
-				},
-				{
-					lset: labels.FromStrings(
-						"__name__", "gitlab_transaction_cache_read_hit_count_total",
-						"action", "widget.json",
-						"controller", "Projects::MergeRequests::ContentController",
-						"env", "gprd",
-						"environment", "gprd",
-						"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
-						"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
-						"job", "gitlab-rails",
-						"monitor", "app",
-						"provider", "gcp",
-						"region", "us-east",
-						"replica", "02",
-						"shard", "default",
-						"stage", "main",
-						"tier", "sv",
-						"type", "web",
-					),
-					samples: expectedRealSeriesWithStaleMarkerReplica1,
-				},
-			},
-			expectedAfterDedup: series{
-				lset: labels.FromStrings(
-					"__name__", "gitlab_transaction_cache_read_hit_count_total",
-					"action", "widget.json",
-					"controller", "Projects::MergeRequests::ContentController",
-					"env", "gprd",
-					"environment", "gprd",
-					"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
-					"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
-					"job", "gitlab-rails",
-					"monitor", "app",
-					"provider", "gcp",
-					"region", "us-east",
-					"shard", "default",
-					"stage", "main",
-					"tier", "sv",
-					"type", "web",
-				),
-				samples: expectedRealSeriesWithStaleMarkerDeduplicated,
+				samples: expectedRealSeriesWithStaleMarkerDeduplicatedForRate,
 			},
 		},
 	} {
+		e := promql.NewEngine(promql.EngineOpts{
+			Logger:        logger,
+			MaxConcurrent: 1,
+			Timeout:       5 * time.Second,
+			MaxSamples:    math.MaxInt64,
+		})
+
 		t.Run(tcase.name, func(t *testing.T) {
 			for _, sc := range []struct {
 				dedup    bool
@@ -706,42 +795,74 @@ func TestQuerier_Select(t *testing.T) {
 				{dedup: false, expected: tcase.expected},
 				{dedup: true, expected: []series{tcase.expectedAfterDedup}},
 			} {
+				q := newQuerier(context.Background(), nil, tcase.mint, tcase.maxt, tcase.replicaLabels, tcase.storeAPI, sc.dedup, 0, true, false)
+				defer testutil.Ok(t, q.Close())
+
 				t.Run(fmt.Sprintf("dedup=%v", sc.dedup), func(t *testing.T) {
-					defer leaktest.CheckTimeout(t, 10*time.Second)()
+					t.Run("querier.Select", func(t *testing.T) {
+						defer leaktest.CheckTimeout(t, 10*time.Second)()
+						defer func() { testutil.Ok(t, q.Close()) }()
 
-					q := newQuerier(context.Background(), nil, tcase.mint, tcase.maxt, tcase.replicaLabels, tcase.storeAPI, sc.dedup, 0, true, false)
-					defer func() { testutil.Ok(t, q.Close()) }()
-
-					res, w, err := q.Select(tcase.hints, tcase.matchers...)
-					testutil.Ok(t, err)
-					if tcase.expectedWarning != "" {
-						testutil.Equals(t, 1, len(w))
-						testutil.Equals(t, tcase.expectedWarning, w[0].Error())
-					}
-
-					i := 0
-					for res.Next() {
-						testutil.Assert(t, i < len(sc.expected), "more series than expected")
-						testutil.Equals(t, sc.expected[i].lset, res.At().Labels())
-
-						samples := expandSeries(t, res.At().Iterator())
-						expected := make([]sample, 0, len(sc.expected[i].samples))
-						for _, s := range sc.expected[i].samples {
-							v := s.v
-							if value.IsStaleNaN(v) {
-								// Nan != Nan, so substitute for another value.
-								v = hackyStaleMarker
-							}
-							expected = append(expected, sample{t: s.t, v: v})
+						res, w, err := q.Select(tcase.hints, tcase.matchers...)
+						testutil.Ok(t, err)
+						if tcase.expectedWarning != "" {
+							testutil.Equals(t, 1, len(w))
+							testutil.Equals(t, tcase.expectedWarning, w[0].Error())
 						}
-						testutil.Equals(t, expected, samples, "samples for series %v does not match", i)
-						i++
-					}
-					testutil.Ok(t, res.Err())
-					testutil.Equals(t, len(sc.expected), i)
+						testSelectResponse(t, sc.expected, res)
+
+					})
+					// Make sure the PromQL would select the same.
+					t.Run("through PromQL with 100s step", func(t *testing.T) {
+						defer leaktest.CheckTimeout(t, 10*time.Second)()
+
+						catcher := &querierResponseCatcher{t: t, Querier: q}
+						q, err := e.NewRangeQuery(&mockedQueryable{catcher}, tcase.equivalentQuery, timestamp.Time(tcase.mint) /*.Add(5*time.Minute)*/, timestamp.Time(tcase.maxt), 100*time.Second)
+						testutil.Ok(t, err)
+						defer q.Close()
+
+						r := q.Exec(context.Background())
+						testutil.Ok(t, r.Err)
+
+						// We don't care about anything else, all should be recorded.
+						testutil.Assert(t, len(catcher.warns) == 1, "expected only single warnings")
+						testutil.Assert(t, len(catcher.resp) == 1, "expected only single response, subqueries?")
+
+						w := catcher.warns[0]
+						if tcase.expectedWarning != "" {
+							testutil.Equals(t, 1, len(w))
+							testutil.Equals(t, tcase.expectedWarning, w[0].Error())
+						}
+						testSelectResponse(t, sc.expected, catcher.resp[0])
+					})
 				})
 			}
 		})
+	}
+}
+
+func testSelectResponse(t *testing.T, expected []series, res storage.SeriesSet) {
+	var series []storage.Series
+	// Use it as PromQL would do, first gather all series.
+	for res.Next() {
+		series = append(series, res.At())
+	}
+	testutil.Ok(t, res.Err())
+	testutil.Equals(t, len(expected), len(series))
+
+	for i, s := range series {
+		testutil.Equals(t, expected[i].lset, s.Labels())
+		samples := expandSeries(t, s.Iterator())
+		expectedCpy := make([]sample, 0, len(expected[i].samples))
+		for _, s := range expected[i].samples {
+			v := s.v
+			if value.IsStaleNaN(v) {
+				// Nan != Nan, so substitute for another value.
+				v = hackyStaleMarker
+			}
+			expectedCpy = append(expectedCpy, sample{t: s.t, v: v})
+		}
+		testutil.Equals(t, expectedCpy, samples, "samples for series %v does not match", i)
 	}
 }
 
@@ -753,32 +874,50 @@ func (q *mockedQueryable) Querier(context.Context, int64, int64) (storage.Querie
 	return q.q, nil
 }
 
-type recQuerier struct {
+type querierResponseCatcher struct {
 	storage.Querier
-
 	t testing.TB
 
-	samples []sample
+	resp  []storage.SeriesSet
+	warns []storage.Warnings
+	errs  []error
 }
 
-func (q *recQuerier) Select(p *storage.SelectParams, m ...*labels.Matcher) (storage.SeriesSet, storage.Warnings, error) {
-	fmt.Println(p, m)
+func (q *querierResponseCatcher) Select(p *storage.SelectParams, m ...*labels.Matcher) (storage.SeriesSet, storage.Warnings, error) {
 	s, w, err := q.Querier.Select(p, m...)
-	s.Next()
+	testutil.Ok(q.t, err)
 
-	q.samples = expandSeries(q.t, s.At().Iterator())
-
-	return s, w, err
+	q.resp = append(q.resp, s)
+	q.warns = append(q.warns, w)
+	return storage.NoopSeriesSet(), storage.Warnings{errors.New("response caught")}, nil
 }
 
-func (q recQuerier) Close() error { return q.Querier.Close() }
+func (q querierResponseCatcher) Close() error { return nil }
 
-func TestQuerierUnderstoodByPromQL_Rate(t *testing.T) {
+// Regression test against https://github.com/thanos-io/thanos/issues/2401.
+func TestQuerierWithDedupUnderstoodByPromQL_Rate(t *testing.T) {
 	logger := log.NewLogfmtLogger(os.Stderr)
 
 	t.Run("./testdata/issue2401-seriesresponses2.json", func(t *testing.T) {
 		s, err := store.NewLocalStoreFromJSONMmappableFile(logger, component.Debug, nil, "./testdata/issue2401-seriesresponses2.json", store.ScanGRPCCurlProtoStreamMessages)
 		testutil.Ok(t, err)
+
+		expectedLset := labels.FromStrings(
+			"action", "widget.json",
+			"controller", "Projects::MergeRequests::ContentController",
+			"env", "gprd",
+			"environment", "gprd",
+			"fqdn", "web-08-sv-gprd.c.gitlab-production.internal",
+			"instance", "web-08-sv-gprd.c.gitlab-production.internal:8083",
+			"job", "gitlab-rails",
+			"monitor", "app",
+			"provider", "gcp",
+			"region", "us-east",
+			"shard", "default",
+			"stage", "main",
+			"tier", "sv",
+			"type", "web",
+		)
 
 		q := newQuerier(context.Background(), logger, realSeriesWithStaleMarkerMint, realSeriesWithStaleMarkerMaxt, []string{"replica"}, s, true, 0, true, false)
 		defer func() { testutil.Ok(t, q.Close()) }()
@@ -790,8 +929,7 @@ func TestQuerierUnderstoodByPromQL_Rate(t *testing.T) {
 			MaxSamples:    math.MaxInt64,
 		})
 		t.Run("Rate=5mStep=100s", func(t *testing.T) {
-			rec := &recQuerier{t: t, Querier: q}
-			q, err := e.NewRangeQuery(&mockedQueryable{rec}, `rate(gitlab_transaction_cache_read_hit_count_total[5m])`, timestamp.Time(realSeriesWithStaleMarkerMint).Add(5*time.Minute), timestamp.Time(realSeriesWithStaleMarkerMaxt), 100*time.Second)
+			q, err := e.NewRangeQuery(&mockedQueryable{q}, `rate(gitlab_transaction_cache_read_hit_count_total[5m])`, timestamp.Time(realSeriesWithStaleMarkerMint).Add(5*time.Minute), timestamp.Time(realSeriesWithStaleMarkerMaxt), 100*time.Second)
 			testutil.Ok(t, err)
 			defer q.Close()
 
@@ -799,12 +937,24 @@ func TestQuerierUnderstoodByPromQL_Rate(t *testing.T) {
 			testutil.Ok(t, r.Err)
 			testutil.Assert(t, len(r.Warnings) == 0)
 
-			testutil.Equals(t, expectedRealSeriesWithStaleMarkerDeduplicated, rec.samples)
-			//fmt.Println(r.String())
+			vec, err := r.Matrix()
+			testutil.Ok(t, err)
+			testutil.Equals(t, promql.Matrix{
+				{Metric: expectedLset, Points: []promql.Point{
+					{T: 1587690300000, V: 13.69122807017544}, {T: 1587690400000, V: 14.098245614035086}, {T: 1587690500000, V: 13.905263157894735}, {T: 1587690600000, V: 13.617543859649123},
+					{T: 1587690700000, V: 14.350877192982455}, {T: 1587690800000, V: 15.003508771929825}, {T: 1587690900000, V: 16.12280701754386}, {T: 1587691000000, V: 16.049122807017543},
+					{T: 1587691100000, V: 15.922807017543859}, {T: 1587691200000, V: 15.63157894736842}, {T: 1587691300000, V: 14.982456140350878}, {T: 1587691400000, V: 14.187259188557551},
+					{T: 1587691500000, V: 13.828070175438594}, {T: 1587691600000, V: 13.971929824561403}, {T: 1587691700000, V: 15.31994329585807}, {T: 1587691800000, V: 14.30877192982456},
+					{T: 1587691900000, V: 13.915789473684212}, {T: 1587692000000, V: 13.312280701754384}, {T: 1587692100000, V: 14.136842105263158}, {T: 1587692200000, V: 14.39298245614035},
+					{T: 1587692300000, V: 15.014035087719297}, {T: 1587692400000, V: 14.112280701754386}, {T: 1587692500000, V: 9.421065148148147}, {T: 1587692600000, V: 1740.491873127187}, //??
+					{T: 1587692700000, V: 1742.229734448992}, {T: 1587692800000, V: 11.918703026416258}, {T: 1587692900000, V: 13.75813610765101}, {T: 1587693000000, V: 13.087719298245615},
+					{T: 1587693100000, V: 13.466666666666667}, {T: 1587693200000, V: 14.028070175438595}, {T: 1587693300000, V: 14.23859649122807}, {T: 1587693400000, V: 15.407017543859647},
+					{T: 1587693500000, V: 15.915789473684208}, {T: 1587693600000, V: 15.712280701754386},
+				}},
+			}, vec)
 		})
 		t.Run("Rate=30mStep=500s", func(t *testing.T) {
-			rec := &recQuerier{t: t, Querier: q}
-			q, err := e.NewRangeQuery(&mockedQueryable{rec}, `rate(gitlab_transaction_cache_read_hit_count_total[30m])`, timestamp.Time(realSeriesWithStaleMarkerMint).Add(30*time.Minute), timestamp.Time(realSeriesWithStaleMarkerMaxt), 500*time.Second)
+			q, err := e.NewRangeQuery(&mockedQueryable{q}, `rate(gitlab_transaction_cache_read_hit_count_total[30m])`, timestamp.Time(realSeriesWithStaleMarkerMint).Add(30*time.Minute), timestamp.Time(realSeriesWithStaleMarkerMaxt), 500*time.Second)
 			testutil.Ok(t, err)
 			defer q.Close()
 
@@ -812,8 +962,16 @@ func TestQuerierUnderstoodByPromQL_Rate(t *testing.T) {
 			testutil.Ok(t, r.Err)
 			testutil.Assert(t, len(r.Warnings) == 0)
 
-			testutil.Equals(t, expectedRealSeriesWithStaleMarkerDeduplicated, rec.samples)
-			//fmt.Println(r.String())
+			vec, err := r.Matrix()
+			testutil.Ok(t, err)
+			testutil.Equals(t, promql.Matrix{
+				{Metric: expectedLset, Points: []promql.Point{
+					{T: 1587691800000, V: 14.464425770308123},
+					{T: 1587692300000, V: 14.763025210084033},
+					{T: 1587692800000, V: 291.105652426067}, // ??
+					{T: 1587693300000, V: 290.89236811640285},
+				}},
+			}, vec)
 		})
 	})
 
@@ -1266,10 +1424,10 @@ func BenchmarkDedupSeriesIterator(b *testing.B) {
 	})
 }
 
-type sample struct {
-	t int64
-	v float64
-}
+//type sample struct {
+//	t int64
+//	v float64
+//}
 
 type SampleIterator struct {
 	l []sample

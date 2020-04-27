@@ -23,7 +23,7 @@ type promSeriesSet struct {
 	done      bool
 
 	mint, maxt int64
-	aggr       resAggr
+	aggrs      []storepb.Aggr
 
 	currLset   []storepb.Label
 	currChunks []storepb.AggrChunk
@@ -59,7 +59,7 @@ func (s *promSeriesSet) At() storage.Series {
 	if !s.initiated || s.set.Err() != nil {
 		return nil
 	}
-	return newChunkSeries(s.currLset, s.currChunks, s.mint, s.maxt, s.aggr)
+	return newChunkSeries(s.currLset, s.currChunks, s.mint, s.maxt, s.aggrs)
 }
 
 func (s *promSeriesSet) Err() error {
@@ -128,10 +128,10 @@ type chunkSeries struct {
 	lset       labels.Labels
 	chunks     []storepb.AggrChunk
 	mint, maxt int64
-	aggr       resAggr
+	aggrs      []storepb.Aggr
 }
 
-func newChunkSeries(lset []storepb.Label, chunks []storepb.AggrChunk, mint, maxt int64, aggr resAggr) *chunkSeries {
+func newChunkSeries(lset []storepb.Label, chunks []storepb.AggrChunk, mint, maxt int64, aggrs []storepb.Aggr) *chunkSeries {
 	sort.Slice(chunks, func(i, j int) bool {
 		return chunks[i].MinTime < chunks[j].MinTime
 	})
@@ -141,7 +141,7 @@ func newChunkSeries(lset []storepb.Label, chunks []storepb.AggrChunk, mint, maxt
 		chunks: chunks,
 		mint:   mint,
 		maxt:   maxt,
-		aggr:   aggr,
+		aggrs:  aggrs,
 	}
 }
 
@@ -149,37 +149,97 @@ func (s *chunkSeries) Labels() labels.Labels {
 	return s.lset
 }
 
+const hackyStaleMarker2 = float64(-99999999)
+
+type sample struct {
+	t int64
+	v float64
+}
+
+func expandSeries2(it chunkenc.Iterator) (res []sample) {
+	for it.Next() {
+		t, v := it.At()
+		// Nan != Nan, so substitute for another value.
+		if math.IsNaN(v) {
+			v = hackyStaleMarker2
+		}
+		res = append(res, sample{t, v})
+	}
+	return res
+}
+
 func (s *chunkSeries) Iterator() storage.SeriesIterator {
 	var sit storage.SeriesIterator
 	its := make([]chunkenc.Iterator, 0, len(s.chunks))
 
-	switch s.aggr {
-	case resAggrCount:
-		for _, c := range s.chunks {
-			its = append(its, getFirstIterator(c.Count, c.Raw))
+	if len(s.aggrs) == 1 {
+		switch s.aggrs[0] {
+		case storepb.Aggr_COUNT:
+			for _, c := range s.chunks {
+				its = append(its, getFirstIterator(c.Count, c.Raw))
+			}
+			sit = newChunkSeriesIterator(its)
+		case storepb.Aggr_SUM:
+			for _, c := range s.chunks {
+				its = append(its, getFirstIterator(c.Sum, c.Raw))
+			}
+			sit = newChunkSeriesIterator(its)
+		case storepb.Aggr_MIN:
+			for _, c := range s.chunks {
+				its = append(its, getFirstIterator(c.Min, c.Raw))
+			}
+			sit = newChunkSeriesIterator(its)
+		case storepb.Aggr_MAX:
+			for _, c := range s.chunks {
+				its = append(its, getFirstIterator(c.Max, c.Raw))
+			}
+			sit = newChunkSeriesIterator(its)
+		case storepb.Aggr_COUNTER:
+			for _, c := range s.chunks {
+				its = append(its, getFirstIterator(c.Counter, c.Raw))
+			}
+
+			//fmt.Println("Series---------------------")
+			//for _, it := range its {
+			//	fmt.Printf("{")
+			//	ss := expandSeries2(it)
+			//	for i, s := range ss {
+			//		fmt.Printf("{t:%v, v:%v},", s.t, s.v)
+			//		if i%10 == 9 {
+			//			fmt.Printf("\n")
+			//		}
+			//	}
+			//	fmt.Printf("},")
+			//}
+			//fmt.Printf("\n")
+			//fmt.Println("SeriesEND---------------------")
+			sit = downsample.NewCounterSeriesIterator(its...)
+			//fmt.Println("Series sit---------------------")
+			//fmt.Printf("{")
+			//ss := expandSeries2(sit)
+			//for i, s := range ss {
+			//	fmt.Printf("{t:%v, v:%v},", s.t, s.v)
+			//	if i%10 == 9 {
+			//		fmt.Printf("\n")
+			//	}
+			//}
+			//fmt.Printf("},")
+			//fmt.Printf("\n")
+			//fmt.Println("SeriesEND---------------------")
+		default:
+			return errSeriesIterator{err: errors.Errorf("unexpected result aggregate type %v", s.aggrs)}
 		}
-		sit = newChunkSeriesIterator(its)
-	case resAggrSum:
-		for _, c := range s.chunks {
-			its = append(its, getFirstIterator(c.Sum, c.Raw))
-		}
-		sit = newChunkSeriesIterator(its)
-	case resAggrMin:
-		for _, c := range s.chunks {
-			its = append(its, getFirstIterator(c.Min, c.Raw))
-		}
-		sit = newChunkSeriesIterator(its)
-	case resAggrMax:
-		for _, c := range s.chunks {
-			its = append(its, getFirstIterator(c.Max, c.Raw))
-		}
-		sit = newChunkSeriesIterator(its)
-	case resAggrCounter:
-		for _, c := range s.chunks {
-			its = append(its, getFirstIterator(c.Counter, c.Raw))
-		}
-		sit = downsample.NewCounterSeriesIterator(its...)
-	case resAggrAvg:
+		return newBoundedSeriesIterator(sit, s.mint, s.maxt)
+	}
+
+	if len(s.aggrs) != 2 {
+		return errSeriesIterator{err: errors.Errorf("unexpected result aggregate type %v", s.aggrs)}
+	}
+
+	switch {
+	case s.aggrs[0] == storepb.Aggr_SUM && s.aggrs[1] == storepb.Aggr_COUNT,
+		s.aggrs[0] == storepb.Aggr_COUNT && s.aggrs[1] == storepb.Aggr_SUM:
+
 		for _, c := range s.chunks {
 			if c.Raw != nil {
 				its = append(its, getFirstIterator(c.Raw))
@@ -190,7 +250,7 @@ func (s *chunkSeries) Iterator() storage.SeriesIterator {
 		}
 		sit = newChunkSeriesIterator(its)
 	default:
-		return errSeriesIterator{err: errors.Errorf("unexpected result aggregate type %v", s.aggr)}
+		return errSeriesIterator{err: errors.Errorf("unexpected result aggregate type %v", s.aggrs)}
 	}
 	return newBoundedSeriesIterator(sit, s.mint, s.maxt)
 }
@@ -400,8 +460,7 @@ func (s *dedupSeriesSet) At() storage.Series {
 	if len(s.replicas) == 1 {
 		return seriesWithLabels{Series: s.replicas[0], lset: s.lset}
 	}
-	// Clients may store the series, so we must make a copy of the slice
-	// before advancing.
+	// Clients may store the series, so we must make a copy of the slice before advancing.
 	repl := make([]storage.Series, len(s.replicas))
 	copy(repl, s.replicas)
 	return newDedupSeries(s.lset, repl...)
