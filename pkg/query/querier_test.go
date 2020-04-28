@@ -383,6 +383,26 @@ var (
 	}
 )
 
+func cnt(d []sample) string {
+	var sumt, sum, cnt float64
+	for i, s := range d[1:] {
+		sum += s.v - d[i].v
+		sumt += float64(s.t) - float64(d[0].t)
+		cnt++
+	}
+	return fmt.Sprintf("avg = %6.6f timeavg =  %6.6f", sum/cnt, sumt/cnt)
+}
+
+func TestLOL(t *testing.T) {
+	d := expectedRealSeriesWithStaleMarkerDeduplicatedForRate
+	fmt.Println("all:", cnt(d))
+
+	fmt.Println("[1,2]/3:", cnt(d[:150]))
+	fmt.Println("3/3:", cnt(d[150:])) // More often!!!
+	fmt.Println("2/2:", cnt(d[100:]))
+
+}
+
 type series struct {
 	lset    labels.Labels
 	samples []sample
