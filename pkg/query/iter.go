@@ -176,25 +176,6 @@ func (s *chunkSeries) Labels() labels.Labels {
 	return s.lset
 }
 
-const hackyStaleMarker2 = float64(-99999999)
-
-type sample struct {
-	t int64
-	v float64
-}
-
-func expandSeries2(it chunkenc.Iterator) (res []sample) {
-	for it.Next() {
-		t, v := it.At()
-		// Nan != Nan, so substitute for another value.
-		if math.IsNaN(v) {
-			v = hackyStaleMarker2
-		}
-		res = append(res, sample{t, v})
-	}
-	return res
-}
-
 func (s *chunkSeries) Iterator() storage.SeriesIterator {
 	var sit storage.SeriesIterator
 	its := make([]chunkenc.Iterator, 0, len(s.chunks))
@@ -225,34 +206,7 @@ func (s *chunkSeries) Iterator() storage.SeriesIterator {
 			for _, c := range s.chunks {
 				its = append(its, getFirstIterator(c.Counter, c.Raw))
 			}
-
-			//fmt.Println("Series---------------------")
-			//for _, it := range its {
-			//	fmt.Printf("{")
-			//	ss := expandSeries2(it)
-			//	for i, s := range ss {
-			//		fmt.Printf("{t:%v, v:%v},", s.t, s.v)
-			//		if i%10 == 9 {
-			//			fmt.Printf("\n")
-			//		}
-			//	}
-			//	fmt.Printf("},")
-			//}
-			//fmt.Printf("\n")
-			//fmt.Println("SeriesEND---------------------")
 			sit = downsample.NewCounterSeriesIterator(its...)
-			//fmt.Println("Series sit---------------------")
-			//fmt.Printf("{")
-			//ss := expandSeries2(sit)
-			//for i, s := range ss {
-			//	fmt.Printf("{t:%v, v:%v},", s.t, s.v)
-			//	if i%10 == 9 {
-			//		fmt.Printf("\n")
-			//	}
-			//}
-			//fmt.Printf("},")
-			//fmt.Printf("\n")
-			//fmt.Println("SeriesEND---------------------")
 		default:
 			return errSeriesIterator{err: errors.Errorf("unexpected result aggregate type %v", s.aggrs)}
 		}
@@ -538,8 +492,8 @@ func newDedupSeriesIterator(a, b storage.SeriesIterator) *dedupSeriesIterator {
 		a:     a,
 		b:     b,
 		lastT: math.MinInt64,
-		aok:   true,
-		bok:   true,
+		aok:   a.Next(),
+		bok:   b.Next(),
 	}
 }
 
