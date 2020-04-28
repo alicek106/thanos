@@ -18,12 +18,12 @@ import (
 // promSeriesSet implements the SeriesSet interface of the Prometheus storage
 // package on top of our storepb SeriesSet.
 type promSeriesSet struct {
-	set       storepb.SeriesSet
-	initiated bool
-	done      bool
+	set  storepb.SeriesSet
+	done bool
 
 	mint, maxt int64
 	aggrs      []storepb.Aggr
+	initiated  bool
 
 	currLset   []storepb.Label
 	currChunks []storepb.AggrChunk
@@ -39,7 +39,8 @@ func (s *promSeriesSet) Next() bool {
 		return false
 	}
 
-	// storage.Series are more strict then SeriesSet: It requires storage.Series to iterate over full series.
+	// storage.Series are more strict then SeriesSet:
+	// * It requires storage.Series to iterate over full series.
 	s.currLset, s.currChunks = s.set.At()
 	for {
 		s.done = s.set.Next()
@@ -52,7 +53,36 @@ func (s *promSeriesSet) Next() bool {
 		}
 		s.currChunks = append(s.currChunks, nextChunks...)
 	}
+
+	// Samples (so chunks as well) have to be sorted by time.
+	// TODO(bwplotka): Benchmark if we can do better.
+	sort.Slice(s.currChunks, func(i, j int) bool {
+		return s.currChunks[i].MinTime < s.currChunks[j].MinTime
+	})
+
+	// newChunkSeriesIterator will handle overlaps well, however we can reduce the exact
+	// chunk duplicates here and on proxy level to avoid decoding those.
+	s.currChunks = removeExactDuplicates(s.currChunks)
 	return true
+}
+
+// removeExactDuplicates returns chunks without 1:1 duplicates.
+// NOTE: input chunks has to be sorted by minTime.
+func removeExactDuplicates(chks []storepb.AggrChunk) []storepb.AggrChunk {
+	if len(chks) <= 1 {
+		return chks
+	}
+
+	ret := make([]storepb.AggrChunk, 0, len(chks))
+	ret = append(ret, chks[0])
+
+	for _, c := range chks[1:] {
+		if ret[len(ret)-1].String() == c.String() {
+			continue
+		}
+		ret = append(ret, c)
+	}
+	return ret
 }
 
 func (s *promSeriesSet) At() storage.Series {
@@ -98,6 +128,7 @@ func translateMatchers(ms ...*labels.Matcher) ([]storepb.LabelMatcher, error) {
 
 // storeSeriesSet implements a storepb SeriesSet against a list of storepb.Series.
 type storeSeriesSet struct {
+	// TODO(bwplotka): Don't buffer all, we have to buffer single series (to sort and dedup chunks), but nothing more.
 	series []storepb.Series
 	i      int
 }
@@ -119,8 +150,7 @@ func (storeSeriesSet) Err() error {
 }
 
 func (s storeSeriesSet) At() ([]storepb.Label, []storepb.AggrChunk) {
-	ser := s.series[s.i]
-	return ser.Labels, ser.Chunks
+	return s.series[s.i].Labels, s.series[s.i].Chunks
 }
 
 // chunkSeries implements storage.Series for a series on storepb types.
@@ -131,11 +161,8 @@ type chunkSeries struct {
 	aggrs      []storepb.Aggr
 }
 
+// newChunkSeries allows to iterate over samples for each sorted and non-overlapped chunks.
 func newChunkSeries(lset []storepb.Label, chunks []storepb.AggrChunk, mint, maxt int64, aggrs []storepb.Aggr) *chunkSeries {
-	sort.Slice(chunks, func(i, j int) bool {
-		return chunks[i].MinTime < chunks[j].MinTime
-	})
-
 	return &chunkSeries{
 		lset:   storepb.LabelsToPromLabels(lset),
 		chunks: chunks,
@@ -342,7 +369,6 @@ type chunkSeriesIterator struct {
 func newChunkSeriesIterator(cs []chunkenc.Iterator) storage.SeriesIterator {
 	if len(cs) == 0 {
 		// This should not happen. StoreAPI implementations should not send empty results.
-		// NOTE(bplotka): Metric, err log here?
 		return errSeriesIterator{}
 	}
 	return &chunkSeriesIterator{chunks: cs}
